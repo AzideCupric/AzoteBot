@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - "master"
+      - "next"
   pull_request:
   release:
     types: [published]
@@ -87,7 +87,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: he0119/coolqbot
+          images: azide/azotebot
 
       - name: Build and push
         if: github.event_name != 'pull_request'
@@ -109,7 +109,7 @@ jobs:
           context: .
           push: false
           load: true
-          tags: he0119/coolqbot:test
+          tags: azide/azotebot:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
@@ -118,7 +118,7 @@ jobs:
       - name: Test Image
         if: github.event_name == 'pull_request'
         run: |
-          docker run --name test-docker-container -d he0119/coolqbot:test > /dev/null
+          docker run --name test-docker-container -d azide/azotebot:test > /dev/null
 
           sleep 10
 
@@ -134,39 +134,39 @@ jobs:
               exit 1
           fi
 
-  deploy_dev:
-    name: Deploy Dev
-    runs-on: ubuntu-latest
-    environment: dev
-    needs: docker
-    if: github.event_name != 'pull_request'
-    steps:
-      - name: Tailscale
-        uses: tailscale/github-action@v2
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
+  # deploy_dev:
+  #   name: Deploy Dev
+  #   runs-on: ubuntu-latest
+  #   environment: dev
+  #   needs: docker
+  #   if: github.event_name != 'pull_request'
+  #   steps:
+  #     - name: Tailscale
+  #       uses: tailscale/github-action@v2
+  #       with:
+  #         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+  #         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+  #         tags: tag:ci
 
-      - name: Deploy to server
-        run: tailscale ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} ${{ secrets.DEPLOY_SCRIPT }}
+  #     - name: Deploy to server
+  #       run: tailscale ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} ${{ secrets.DEPLOY_SCRIPT }}
 
-  deploy_prod:
-    name: Deploy Prod
-    runs-on: ubuntu-latest
-    environment: prod
-    needs: docker
-    if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
-    steps:
-      - name: Tailscale
-        uses: tailscale/github-action@v2
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:ci
+  # deploy_prod:
+  #   name: Deploy Prod
+  #   runs-on: ubuntu-latest
+  #   environment: prod
+  #   needs: docker
+  #   if: ${{ github.event_name == 'release' && github.event.action == 'published' }}
+  #   steps:
+  #     - name: Tailscale
+  #       uses: tailscale/github-action@v2
+  #       with:
+  #         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+  #         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+  #         tags: tag:ci
 
-      - name: Deploy to server
-        run: tailscale ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} ${{ secrets.DEPLOY_SCRIPT }}
+  #     - name: Deploy to server
+  #       run: tailscale ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} ${{ secrets.DEPLOY_SCRIPT }}
 
   sentry_release:
     name: Sentry Release

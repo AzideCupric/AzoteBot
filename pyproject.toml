@@ -2,7 +2,7 @@
 name = "coolqbot"
 version = "0.19.2"
 description = "基于 NoneBot2 的聊天机器人"
-authors = [{ name = "uy_sun", email = "hmy0119@gmail.com" }]
+authors = [{ name = "uy_sun", email = "hmy0119@gmail.com" }, { name = "AzideCupric", email = "rukuy@qq.com"}]
 dependencies = [
     "pydantic>=2.8.2",
     "eorzeaenv @ git+https://github.com/he0119/EorzeaEnv.git@coolqbot",
@@ -33,16 +33,17 @@ dependencies = [
     "nonebot-bison @ git+https://github.com/MountainDash/nonebot-bison@10409a42822fc3a5f209f39bade709c65d5bdbac",
     "nonebot-plugin-status==0.8.1",
     "nonebot-plugin-bawiki==0.11.3",
+    "nonebot-plugin-pipe @ git+https://github.com/nonepkg/plugin-pipe.git",
 ]
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">= 3.12, < 3.13"
 
 [project.urls]
-Homepage = "https://github.com/he0119/CoolQBot"
-Repository = "https://github.com/he0119/CoolQBot.git"
-Issues = "https://github.com/he0119/CoolQBot/issues"
-Changelog = "https://github.com/he0119/CoolQBot/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/AzideCupric/AzoteBot"
+Repository = "https://github.com/AzideCupric/AzoteBot.git"
+Issues = "https://github.com/AzideCupric/AzoteBot/issues"
+Changelog = "https://github.com/AzideCupric/AzoteBot/blob/master/CHANGELOG.md"
 
 [tool.rye]
 managed = true
