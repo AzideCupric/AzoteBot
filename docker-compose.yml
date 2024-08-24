@@ -1,7 +1,7 @@
 services:
   coolqbot:
-    image: he0119/coolqbot
-    container_name: coolqbot
+    image: azide/azotebot
+    container_name: azotebot
     restart: always
     volumes:
       - "./data:/app/data"
