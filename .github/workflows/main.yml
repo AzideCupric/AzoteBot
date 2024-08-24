@@ -79,6 +79,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3
         with:
+          registry: registry.cn-shenzhen.aliyuncs.com
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
@@ -87,7 +88,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: azide/azotebot
+          images: registry.cn-shenzhen.aliyuncs.com/azide/azotebot
 
       - name: Build and push
         if: github.event_name != 'pull_request'
@@ -109,7 +110,7 @@ jobs:
           context: .
           push: false
           load: true
-          tags: azide/azotebot:test
+          tags: registry.cn-shenzhen.aliyuncs.com/azide/azotebot:test
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
@@ -118,7 +119,7 @@ jobs:
       - name: Test Image
         if: github.event_name == 'pull_request'
         run: |
-          docker run --name test-docker-container -d azide/azotebot:test > /dev/null
+          docker run --name test-docker-container -d registry.cn-shenzhen.aliyuncs.com/azide/azotebot:test > /dev/null
 
           sleep 10
 
