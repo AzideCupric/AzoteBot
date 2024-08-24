@@ -31,13 +31,6 @@ RUN PYTHONDONTWRITEBYTECODE=1 pip install --no-cache-dir -r requirements.lock
 # 安装浏览器
 RUN playwright install --with-deps chromium
 
-# 缓存表情包制作插件字体与图片
-RUN git clone --depth 1 https://github.com/MeetWq/meme-generator.git \
-  && cp -r ./meme-generator/resources/fonts /usr/share/fonts/meme-fonts \
-  && rm -rf ./meme-generator \
-  && fc-cache -fv
-RUN meme download --url https://raw.githubusercontent.com/MeetWq/meme-generator/
-
 # 机器人
 ENV APP_MODULE=bot:app
 # 如果你有多个QQ，且存在 self_id 指定，多个 worker 会导致无法找到其他 websocket 连接
