@@ -2,7 +2,6 @@ import nonebot
 from nonebot.adapters.discord import Adapter as DiscordAdapter
 from nonebot.adapters.onebot.v11 import Adapter as OneBotV11Adapter
 from nonebot.adapters.onebot.v12 import Adapter as OneBotV12Adapter
-from nonebot.adapters.qq import Adapter as QQAdapter
 from nonebot.adapters.satori import Adapter as SatoriAdapter
 from nonebot.adapters.telegram import Adapter as TelegramAdapter
 from nonebot.log import logger
@@ -15,7 +14,6 @@ driver = nonebot.get_driver()
 driver.register_adapter(DiscordAdapter)
 driver.register_adapter(OneBotV11Adapter)
 driver.register_adapter(OneBotV12Adapter)
-driver.register_adapter(QQAdapter)
 driver.register_adapter(SatoriAdapter)
 driver.register_adapter(TelegramAdapter)
 
